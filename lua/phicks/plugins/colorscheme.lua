@@ -1,24 +1,12 @@
 return {
-    "ficcdaf/ashen.nvim",
-    lazy = false,
-    priority=1000,
-        config = function()
-        require("ashen").setup({
-            opts = {
-                style_presets = {
-                    bold_functions = true,
-                    italic_comments = true,
-                },
-                style = {
-                    bold = true,
-                    italic = true,
-                },
-                colors = {
-                    background = "#4A8B8B",
-                },
-            },
-        })
-
+      "ficcdaf/ashen.nvim",
+      lazy = false,
+      priority = 1000,
+      -- configuration is optional!
+      opts = {
+        -- your settings here
+      },
+    config = function()
         vim.cmd("colorscheme ashen")
-    end
+    end,
 }
