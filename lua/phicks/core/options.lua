@@ -30,7 +30,7 @@ opt.signcolumn = "yes"
 opt.backspace = "indent,eol,start" -- Allow backspace on indent line, end of line, or start
 
 --Clipboard
-opt.clipboard:append("unnamedplus")
+opt.clipboard = "unnamedplus"
 
 -- Split windows
 opt.splitright = true
