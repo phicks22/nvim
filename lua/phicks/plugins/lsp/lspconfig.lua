@@ -67,15 +67,23 @@ return {
 
 		-- Configure diagnostic signs
 		vim.diagnostic.config({
-			signs = {
-				text = {
-					[vim.diagnostic.severity.ERROR] = " ",
-					[vim.diagnostic.severity.WARN] = " ",
-					[vim.diagnostic.severity.HINT] = "󰠠 ",
-					[vim.diagnostic.severity.INFO] = " ",
-				},
-			},
+			virtual_text = true,
+			signs = true,
+			underline = true,
+			update_in_insert = false,
 		})
+
+		-- Define diagnostic signs
+		local signs = {
+			{ name = "DiagnosticSignError", text = " " },
+			{ name = "DiagnosticSignWarn", text = " " },
+			{ name = "DiagnosticSignHint", text = "󰠠 " },
+			{ name = "DiagnosticSignInfo", text = " " },
+		}
+
+		for _, sign in ipairs(signs) do
+			vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+		end
 
 		-- Configure servers before mason-lspconfig setup
 		-- Default configuration that will apply to all servers

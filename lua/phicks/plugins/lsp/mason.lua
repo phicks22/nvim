@@ -41,6 +41,12 @@ return {
 			},
 		})
 
+		-- Enable all installed servers
+		local installed_servers = mason_lspconfig.get_installed_servers()
+		for _, server in ipairs(installed_servers) do
+			vim.lsp.enable(server)
+		end
+
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier", -- prettier formatter
