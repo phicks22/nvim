@@ -49,10 +49,14 @@ return {
 				keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
 				opts.desc = "Go to previous diagnostic"
-				keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+				keymap.set("n", "[d", function()
+					vim.diagnostic.jump({ count = -1, float = true })
+				end, opts)
 
 				opts.desc = "Go to next diagnostic"
-				keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+				keymap.set("n", "]d", function()
+					vim.diagnostic.jump({ count = 1, float = true })
+				end, opts)
 
 				opts.desc = "Show documentation for what is under cursor"
 				keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -68,22 +72,17 @@ return {
 		-- Configure diagnostic signs
 		vim.diagnostic.config({
 			virtual_text = true,
-			signs = true,
+			signs = {
+				test = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
+				},
+			},
 			underline = true,
 			update_in_insert = false,
 		})
-
-		-- Define diagnostic signs
-		local signs = {
-			{ name = "DiagnosticSignError", text = " " },
-			{ name = "DiagnosticSignWarn", text = " " },
-			{ name = "DiagnosticSignHint", text = "󰠠 " },
-			{ name = "DiagnosticSignInfo", text = " " },
-		}
-
-		for _, sign in ipairs(signs) do
-			vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-		end
 
 		-- Configure servers before mason-lspconfig setup
 		-- Default configuration that will apply to all servers
